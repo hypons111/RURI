@@ -20,39 +20,3 @@ mongoose
 app.get("/RURI", (request, response) => {
   response.send("This is RURI.");
 })
-
-
-const ingredientSchema = new mongoose.Schema({
-  _id: String,
-  name: String,
-  unit: String,
-  priceUnit: Number,
-  stock: Number
-})
-const Ingredient = mongoose.model("Ingredient", ingredientSchema, "ingredient");
-
-app.get("/getAllIngredient", async(request, response) => {
-  try{
-    const ingredient = await Ingredient.find();
-    response.json(ingredient);
-  } catch(error) {
-    console.log("ERROR : " + error.message);
-  }
-})
-
-
-
-const userSchema = new mongoose.Schema({
-  name: String,
-})
-const User = mongoose.model("User", userSchema, "User");
-
-app.get("/User", async(request, response) => {
-  
-  try{
-    const users = await User.find();
-    response.json(users);
-  } catch(error) {
-    console.log("ERROR : " + error.message);
-  }
-})
