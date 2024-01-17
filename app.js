@@ -4,8 +4,7 @@ require('dotenv').config();  // 要用 .env 存取全域變數就要安裝 doten
 const app = express();
 const PORT = process.env.PORT;  // 從 .env 取得 PORT 常數
 const DATABASE_URL = process.env.DATABASE_URL;  // 從 .env 取得 DATABASE_URL 常數
-const { Ingredient, Recipe } = require('./models/schema');  // 取得 schema
-
+const router = require('./models/router');  // 取得 api
 
 /* 連接 mongoDB */
 mongoose
@@ -18,36 +17,29 @@ app.listen(PORT, () => {
   console.log(`Server is running on PORT : ${PORT}`)
 })
 
-
-
-/* Rounters */
-app.get("/RURI", (request, response) => {
-  response.send("This is RURI.");
-})
-
-app.get("/queryIngredient", async (request, response) => {
-  try {
-    const ingredients = await Ingredient.find();
-    response.json(ingredients);
-  } catch (error) {
-    console.error("ERROR : " + error.message);
-    response.status(500).send("Error fetching users.");
-  }
-});
-
-app.get("/queryRecipe", async (request, response) => {
-  try {
-    const recipes = await Recipe.find();
-    response.json(recipes);
-  } catch (error) {
-    console.error("ERROR : " + error.message);
-    response.status(500).send("Error fetching users.");
-  }
-});
+app.use("/ruri", router)
 
 
 
 
+
+
+
+
+/* Router */
+// app.get("/queryIngredient", async (req, res) => {
+//   try {
+//     const ingredients = await Ingredient.find();
+//     res.json(ingredients);
+//   } catch (error) { res.send(false); }
+// });
+
+// app.get("/queryRecipe", async (req, res) => {
+//   try {
+//     const recipes = await Recipe.find();
+//     res.json(recipes);
+//   } catch (error) { res.send(false); }
+// });
 
 
 
