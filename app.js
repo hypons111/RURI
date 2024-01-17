@@ -4,41 +4,57 @@ require('dotenv').config();  // 要用 .env 存取全域變數就要安裝 doten
 const app = express();
 const PORT = process.env.PORT;  // 從 .env 取得 PORT 常數
 const DATABASE_URL = process.env.DATABASE_URL;  // 從 .env 取得 DATABASE_URL 常數
+const { Ingredient, Recipe } = require('./models/schema');  // 取得 schema
 
-// 連接 mongoDB
+
+/* 連接 mongoDB */
 mongoose
 .connect(DATABASE_URL)
 .then(() => console.log("Conneted to MongoDB"))
 .catch((error) => console.error('Could not connect to MongoDB...', error));
 
-// 監聽 port:3000  
+/* 監聽 port:3000 */
 app.listen(PORT, () => {
   console.log(`Server is running on PORT : ${PORT}`)
 })
 
+
+
+/* Rounters */
 app.get("/RURI", (request, response) => {
   response.send("This is RURI.");
 })
 
-const userSchema = new mongoose.Schema({
-  name: String
-})
-const User = mongoose.model("user", userSchema, "user");
-
-app.get("/queryUser", async (request, response) => {
+app.get("/queryIngredient", async (request, response) => {
   try {
-    const users = await User.find();
-    response.json(users);
+    const ingredients = await Ingredient.find();
+    response.json(ingredients);
   } catch (error) {
     console.error("ERROR : " + error.message);
     response.status(500).send("Error fetching users.");
   }
 });
 
+app.get("/queryRecipe", async (request, response) => {
+  try {
+    const recipes = await Recipe.find();
+    response.json(recipes);
+  } catch (error) {
+    console.error("ERROR : " + error.message);
+    response.status(500).send("Error fetching users.");
+  }
+});
+
+
+
+
+
+
+
+/* MongoDB 原生 driver */
 // const { MongoClient } = require('mongodb');
 // const url = 'mongodb+srv://hypons:Zz94057704@ruri.wnonyie.mongodb.net/';
 // const client = new MongoClient(url);
-
 // async function run() {
 //   try {
 //     await client.connect();
@@ -50,5 +66,4 @@ app.get("/queryUser", async (request, response) => {
 //     await client.close();
 //   }
 // }
-
 // run();
