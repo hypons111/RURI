@@ -8,9 +8,9 @@ const router = require('./models/router');  // 取得 api
 
 /* 連接 mongoDB */
 mongoose
-.connect(DATABASE_URL)
-.then(() => console.log("Conneted to MongoDB"))
-.catch((error) => console.error('Could not connect to MongoDB...', error));
+  .connect(DATABASE_URL)
+  .then(() => console.log("Conneted to MongoDB"))
+  .catch((error) => console.error('Could not connect to MongoDB...', error));
 
 /* 監聽 port:3000 */
 app.listen(PORT, () => {
