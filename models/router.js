@@ -29,7 +29,7 @@ router.get("/getAllDesserts", async (req, res) => {
 /* 全部訂單 */
 router.get("/getAllOrders", async (req, res) => {
   try {
-    const orders = await Order.find().maxTimeMS(100000);
+    const orders = await Order.find().maxTime(100000);
     res.send(orders);
   } catch (error) { res.status(500).send("ERROR : " + error); }
 });
