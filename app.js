@@ -17,7 +17,7 @@ mongoose
 /* 監聽 port:3000 */
 app.listen(PORT, () => {
   console.log(`Server is running on PORT : ${PORT}`)
-})廿
+})
 
 app.use("/ruri", router)
 
