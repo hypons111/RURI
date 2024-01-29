@@ -18,8 +18,8 @@ router.get("/queryAllIngredients", async (req, res) => {
 /* 全部甜品 */
 router.get("/getAllDesserts", async (req, res) => {
   try {
-    const desserts = await Dessert.find();
     console.log("start");
+    const desserts = await Dessert.find();
     console.log(desserts);
     console.log("end");
     res.send(desserts);
