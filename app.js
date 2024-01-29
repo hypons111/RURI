@@ -9,7 +9,7 @@ const router = require('./models/router');  // 取得 api
 /* 連接 mongoDB */
 mongoose
   .connect(DATABASE_URL, {
-    poolSize: 10 // 根据需求设置连接池大小
+    poolSize: 100
   })
   .then(() => console.log("Conneted to MongoDB"))
   .catch((error) => console.error('Could not connect to MongoDB...', error));
