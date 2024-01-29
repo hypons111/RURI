@@ -19,7 +19,7 @@ router.get("/queryAllIngredients", async (req, res) => {
 router.get("/getAllDesserts", async (req, res) => {
   try {
     console.log("start");
-    // const desserts = await Dessert.find();
+    const desserts = await Dessert.find();
     console.log(desserts);
     console.log("end");
     res.send(desserts);

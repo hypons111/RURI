@@ -8,16 +8,14 @@ const router = require('./models/router');  // 取得 api
 
 /* 連接 mongoDB */
 mongoose
-  .connect(DATABASE_URL, {
-    poolSize: 100
-  })
+  .connect(DATABASE_URL)
   .then(() => console.log("Conneted to MongoDB"))
   .catch((error) => console.error('Could not connect to MongoDB...', error));
 
 /* 監聽 port:3000 */
 app.listen(PORT, () => {
   console.log(`Server is running on PORT : ${PORT}`)
-})
+})廿
 
 app.use("/ruri", router)
 
