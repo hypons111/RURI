@@ -49,7 +49,7 @@ router.get("/queryRecipe", async (req, res) => {
 /* 全部訂單 */
 router.get("/test", async (req, res) => {
   try {
-    const text = "fuckthisshit"
+    const text = "fuckthisshit."
     res.send(text)
   } catch (error) { res.status(500).send("ERROR : " + error); }
 });
