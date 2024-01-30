@@ -34,21 +34,13 @@ router.get("/getAllOrders", async (req, res) => {
   } catch (error) { res.status(500).send("ERROR : " + error); }
 });
 
-/* 查詢甜品 */
-router.get("/queryRecipe", async (req, res) => {
+/* TEST */
+router.get("/test", async (req, res) => {
   try {
     const query = {}; // 將查詢條件
     for (key in req.query) {
       query[key] = req.query[key] // 將存在的條件放入物件
     }
-    const recipes = await Recipe.find(query);
-    res.send(recipes);
-  } catch (error) { res.status(500).send("ERROR : " + error); }
-})
-
-/* 全部訂單 */
-router.get("/test", async (req, res) => {
-  try {
     const text = "fuckthisshit."
     res.send(text)
   } catch (error) { res.status(500).send("ERROR : " + error); }
