@@ -25,12 +25,12 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
-    await mongoose.disconnect();
+    // await mongoose.disconnect();
   }
 }
 run().catch(console.dir);
 
-
+/* 連接 mongoDB */
 // mongoose
 //   .connect(DATABASE_URL)
 //   .then(() => console.log("Conneted to MongoDB"))
