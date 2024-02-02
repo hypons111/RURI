@@ -15,8 +15,16 @@ app.use("/ruri", router)
 
 
 
+
+
 /* 連接 mongoDB */
-const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
+const clientOptions = {
+  serverApi: {
+    version: '1',
+    strict: true, // 設為 true 時，如果使用了 MongoDB 標記為不推薦（deprecated）的功能，會拋出錯誤。
+    deprecationErrors: true // 設為 true 時，如果使用了 MongoDB 中已被標記為弃用的特性，MongoDB 會拋出錯誤。
+  }
+};
 async function run() {
   try {
     // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
