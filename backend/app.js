@@ -6,16 +6,11 @@ const PORT = process.env.PORT;  // 從 .env 取得 PORT 常數
 const DATABASE_URL = process.env.DATABASE_URL;  // 從 .env 取得 DATABASE_URL 常數
 const router = require('./models/router');  // 取得 api
 
-
 /* 監聽 port:3000 */
 app.listen(PORT, () => {
   console.log(`Server is running on PORT : ${PORT}`)
 })
 app.use("/ruri", router)
-
-
-
-
 
 /* 連接 mongoDB */
 const clientOptions = {

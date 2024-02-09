@@ -16,6 +16,27 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     }
+  },
+  {
+    path: '/ingredient',
+    name: 'ordingredienter',
+    component: function () {
+      return import('../views/IngredientVue.vue')
+    }
+  },
+  {
+    path: '/dessert',
+    name: 'dessert',
+    component: function () {
+      return import('../views/DessertVue.vue')
+    }
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component: function () {
+      return import('../views/OrderVue.vue')
+    }
   }
 ]
 

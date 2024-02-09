@@ -8,7 +8,7 @@ router.get("/home", (req, res) => {
 })
 
 /* 全部材料 */
-router.get("/queryAllIngredients", async (req, res) => {
+router.get("/getAllIngredients", async (req, res) => {
   try {
     const ingredients = await Ingredient.find();
     res.send(ingredients);
@@ -34,16 +34,5 @@ router.get("/getAllOrders", async (req, res) => {
   } catch (error) { res.status(500).send("ERROR : " + error); }
 });
 
-/* TEST */
-router.get("/test", async (req, res) => {
-  try {
-    const query = {}; // 將查詢條件
-    for (key in req.query) {
-      query[key] = req.query[key] // 將存在的條件放入物件
-    }
-    const text = "fuckthisshit."
-    res.send(text)
-  } catch (error) { res.status(500).send("ERROR : " + error); }
-});
 
 module.exports = router;
