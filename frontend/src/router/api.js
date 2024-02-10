@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 function API (name) {
   if (name === '' || !name) {
     return '404'
