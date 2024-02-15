@@ -10,7 +10,7 @@ const router = require('./models/router');  // 取得 api
 app.listen(PORT, () => {
   console.log(`Server is running on PORT : ${PORT}`)
 })
-app.use("/ruri", router)
+app.use("", router)
 
 /* 連接 mongoDB */
 const clientOptions = {
