@@ -1,24 +1,10 @@
-# frontend
+# frontend 紀錄
 
-## Project setup
-```
-npm install
-```
+## 2024-02-03
+無用 TypeScript 因為得我一個寫，同埋好似會係用嚟檢查型別，未感受到佢有用嘅地方。
+eslint 真係好煩，所以最後都係唔用。
+BootStrap-vue 唔支援 vue 3，本來想用其他 plugin，但又好似無乜需要。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 2024-02-10
+其實 searchBar 同 table 係應該寫喺一個組件，但我又想試吓子組件同子組仔之間互傳資料，所以夾硬寫埋一齊。
+原理：父元件宣告一個 **響應式變數** 同一個 **用嚟改呢個變數嘅方法** 傳俾 **A子組件** ，再將呢個變數傳俾 **B子組件**，就可以 **A** 傳 **B**。
