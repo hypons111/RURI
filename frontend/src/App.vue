@@ -5,16 +5,14 @@
     <router-link to="/dessert">DESSERT</router-link> |
     <router-link to="/order">ORDER</router-link>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  background-color: #395b74;
   text-align: center;
-  color: #2c3e50;
 }
 
 nav {
@@ -22,10 +20,10 @@ nav {
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #e2c9ab;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #d5765a;
     }
   }
 }
