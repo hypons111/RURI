@@ -32,6 +32,8 @@ function getRequestData(data) {
   requestData.value = data;
 }
 function getAllIngredients() {
+  console.log(API("getAllIngredients"));
+
   axios.get(API("getAllIngredients")).then((response) => {
     console.log(response);
   });

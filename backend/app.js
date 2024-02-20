@@ -1,18 +1,24 @@
-const express = require("express");
-const mongoose = require('mongoose');
 require('dotenv').config();  // 要用 .env 存取全域變數就要安裝 dotenv
+const express = require("express");
+const cors = require('cors');
+const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT;  // 從 .env 取得 PORT 常數
 const DATABASE_URL = process.env.DATABASE_URL;  // 從 .env 取得 DATABASE_URL 常數
-const router = require('./models/router');  // 取得 api
+const router = require('./models/router');  // 路由處理器
 
 /* 監聽 port:3000 */
 app.listen(PORT, () => {
   console.log(`Server is running on PORT : ${PORT}`)
 })
-app.use("", router)
 
-/* 連接 mongoDB */
+/* 處理 CORS */
+app.use(cors());
+
+/* 加前綴到路由處理器 */
+app.use("/RURI", router);
+
+/* 連接 mongoDB 設定 */
 const clientOptions = {
   serverApi: {
     version: '1',
@@ -20,27 +26,26 @@ const clientOptions = {
     deprecationErrors: true // 設為 true 時，如果使用了 MongoDB 中已被標記為弃用的特性，MongoDB 會拋出錯誤。
   }
 };
+
+/* 連接 mongoDB */
 async function run() {
   try {
-    // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
     await mongoose.connect(DATABASE_URL, clientOptions);
-    await mongoose.connection.db.admin().command({ ping: 1 });
+    await mongoose.connection.db.admin().command({ ping: 1 }); // 連線測試
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
-    // Ensures that the client will close when you finish/error
-    // await mongoose.disconnect();
+    // await mongoose.disconnect(); // 關閉連線
   }
 }
 run().catch(console.dir);
+
+
 
 /* 連接 mongoDB */
 // mongoose
 //   .connect(DATABASE_URL)
 //   .then(() => console.log("Conneted to MongoDB"))
 //   .catch((error) => console.error('Could not connect to MongoDB...', error));
-
-
-
 
 /* Router */
 // app.get("/queryIngredient", async (req, res) => {
