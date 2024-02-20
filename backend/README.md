@@ -14,3 +14,5 @@ __!__ Atlas 暫時只可以開 0.0.0.0/0 先連到，放到最後先解決。
 
 ## 2024-02-20
 node.js 後端有 **cors** 套件用嚟處理 CORS 問題，好方便。
+
+要喺根目錄用 `git subtree push --prefix backend heroku main` 推去 heroku.
