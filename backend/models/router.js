@@ -10,7 +10,7 @@ router.get("/home", (req, res) => {
 /* 全部材料 */
 router.get("/getAllIngredients", async (req, res) => {
   try {
-    const ingredients = await Ingredient.find();
+    const ingredients = await Ingredient.find({}, { _id: false }); // 排除 _id
     res.send(ingredients);
   } catch (error) { res.status(500).send("ERROR : " + error); }
 });

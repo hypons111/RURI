@@ -1,5 +1,6 @@
 <template>
   <div id="dataTable">
+    <button class="btn" @click="show()">show</button>
     <table class="table">
       <thead>
         <tr>
@@ -8,7 +9,13 @@
           </th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <tr v-for="item in tableDataArray" :key="item">
+          {{
+            item
+          }}
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>
@@ -16,8 +23,14 @@
 <script setup>
 const props = defineProps({
   tableHeaderArray: Array,
+  tableDataArray: Array,
 });
 const tableHeaderArray = props.tableHeaderArray;
+const tableDataArray = props.tableDataArray;
+
+function show() {
+  console.log(tableDataArray);
+}
 </script>
 
 <style>

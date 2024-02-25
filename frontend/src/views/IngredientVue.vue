@@ -1,21 +1,16 @@
 <template>
   <div class="ingredient">
     <h1>INGREDIENT</h1>
-    <button @click="getAllIngredients()">QUERY</button>
-    <SearchBar
+    <SearchTable
       :tableHeaderArray="tableHeaderArray"
-      :getRequestData="getRequestData"
-    ></SearchBar>
-    <DataTable :tableHeaderArray="tableHeaderArray"></DataTable>
+      :pageName="pageName"
+    ></SearchTable>
   </div>
 </template>
 
 <script setup>
-import DataTable from "@/components/DataTable.vue";
-import SearchBar from "@/components/SearchBar.vue";
+import SearchTable from "@/components/SearchTable.vue";
 import { ref } from "vue";
-import API from "../assets/js/api";
-import axios from "axios";
 
 const tableHeaderArray = ref([
   "#",
@@ -27,17 +22,7 @@ const tableHeaderArray = ref([
   "REMARK",
   "OPTION",
 ]);
-const requestData = ref({});
-function getRequestData(data) {
-  requestData.value = data;
-}
-function getAllIngredients() {
-  console.log(API("getAllIngredients"));
-
-  axios.get(API("getAllIngredients")).then((response) => {
-    console.log(response);
-  });
-}
+const pageName = ref("ingredients");
 </script>
 
 <style></style>
