@@ -3,7 +3,6 @@ import URL from "./url";
 
 function axiosGet(apiName) {
   return axios.get(URL.url(apiName)).then((response) => {
-    console.log(response);
     return response
   });
 }

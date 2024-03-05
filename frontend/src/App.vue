@@ -8,6 +8,28 @@
   <router-view />
 </template>
 
+<script setup>
+import { computed, ref, onMounted, inject } from "vue";
+const API = inject("API");
+const URL = inject("URL");
+const INGREDINETS = ref([]);
+const DESSERTS = ref([]);
+const ORDERS = ref([]);
+
+onMounted(async () => {
+  API.axiosGet("ingredients").then((response) => {
+    console.log(response.data);
+  });
+  API.axiosGet("desserts").then((response) => {
+    console.log(response.data);
+  });
+  API.axiosGet("orders").then((response) => {
+    console.log(response.data);
+  });
+});
+</script>
+
+
 <style lang="scss">
 #app {
   height: 100vh;

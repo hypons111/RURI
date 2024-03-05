@@ -18,10 +18,7 @@ router.get("/getAllIngredients", async (req, res) => {
 /* 全部甜品 */
 router.get("/getAllDesserts", async (req, res) => {
   try {
-    console.log("start");
-    const desserts = await Dessert.find();
-    console.log(desserts);
-    console.log("end");
+    const desserts = await Dessert.find({}, { _id: false });
     res.send(desserts);
   } catch (error) { res.status(500).send("ERROR : " + error); }
 });
@@ -29,10 +26,9 @@ router.get("/getAllDesserts", async (req, res) => {
 /* 全部訂單 */
 router.get("/getAllOrders", async (req, res) => {
   try {
-    const orders = await Order.find().maxTime(100000);
+    const orders = await Order.find({}, { _id: false });
     res.send(orders);
   } catch (error) { res.status(500).send("ERROR : " + error); }
 });
-
 
 module.exports = router;
