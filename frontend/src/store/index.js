@@ -12,6 +12,7 @@ export default createStore({
     ORDERS: state => state.ORDERS
   },
   mutations: {
+
   },
   actions: {
   },
