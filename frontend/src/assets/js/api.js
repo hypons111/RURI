@@ -2,9 +2,7 @@ import axios from 'axios';
 import URL from "./url";
 
 function axiosGet(apiName) {
-  return axios.get(URL.url(apiName)).then((response) => {
-    return response
-  });
+  return axios.get(URL.url(apiName))
 }
 
 function axiosPost() {

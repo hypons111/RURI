@@ -1,17 +1,19 @@
 <template>
   <div class="ingredient">
-    <h1>INGREDIENT</h1>
     <SearchTable
-      :tableHeaderArray="tableHeaderArray"
       :pageName="pageName"
+      :searchBarArray="searchBarArray"
+      :tableHeaderArray="tableHeaderArray"
     ></SearchTable>
   </div>
 </template>
 
 <script setup>
 import SearchTable from "@/components/SearchTable.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
+const pageName = ref("INGREDIENTS");
+const searchBarArray = ref(["#", "name", "category", "stock", "remark"]);
 const tableHeaderArray = ref([
   "#",
   "NAME",
@@ -22,7 +24,6 @@ const tableHeaderArray = ref([
   "REMARK",
   "OPTION",
 ]);
-const pageName = ref("ingredients");
 </script>
 
 <style></style>

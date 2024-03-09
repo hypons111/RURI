@@ -1,31 +1,23 @@
 <template>
+  <router-view />
   <nav>
     <router-link to="/">HOME</router-link> |
     <router-link to="/ingredient">INGREDIENT</router-link> |
     <router-link to="/dessert">DESSERT</router-link> |
-    <router-link to="/order">ORDER</router-link>
+    <router-link to="/order">ORDER</router-link> |
+    <router-link to="/">+</router-link>
   </nav>
-  <router-view />
+  <footer></footer>
 </template>
+
 
 <script setup>
 import { computed, ref, onMounted, inject } from "vue";
-const API = inject("API");
-const URL = inject("URL");
-const INGREDINETS = ref([]);
-const DESSERTS = ref([]);
-const ORDERS = ref([]);
+import { useStore } from "vuex";
+const store = useStore();
 
 onMounted(async () => {
-  API.axiosGet("ingredients").then((response) => {
-    console.log(response.data);
-  });
-  API.axiosGet("desserts").then((response) => {
-    console.log(response.data);
-  });
-  API.axiosGet("orders").then((response) => {
-    console.log(response.data);
-  });
+  store.dispatch("fetchAll");
 });
 </script>
 
