@@ -1,11 +1,16 @@
 <template>
   <router-view />
+
+  <button class="btn danger">test</button>
+
   <nav>
     <router-link to="/">HOME</router-link> |
     <router-link to="/ingredient">INGREDIENT</router-link> |
     <router-link to="/dessert">DESSERT</router-link> |
     <router-link to="/order">ORDER</router-link> |
-    <router-link to="/">+</router-link>
+    <router-link to="/"
+      ><font-awesome-icon :icon="['fas', 'plus']"
+    /></router-link>
   </nav>
   <footer></footer>
 </template>

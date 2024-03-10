@@ -61,3 +61,7 @@ store.commit('mutationName', payload 可選); // 使用mutation，mutationName�
 store.dispatch('actionName', payload 可選); // 使用action，actionName是action中的方法名稱，payload是新資料。
 
 ```
+
+
+## 2024-03-10
+加入font-awesome
