@@ -4,14 +4,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "HomeView",
-  components: {},
-};
+<script setup>
 </script>
+
 <style scoped>
 #logo {
-  width: 50vw;
+  width: 10vw;
 }
 </style>

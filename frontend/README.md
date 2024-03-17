@@ -65,3 +65,11 @@ store.dispatch('actionName', payload 可選); // 使用action，actionName是act
 
 ## 2024-03-10
 加入font-awesome
+
+
+## 2024-03-17
+材料畫面基本排版完成。dataTable資料量很少不做分頁。為了視覺上齊整，把thead和tbody分成兩個table，tbody scroll時，thead仍然會留在頂部。
+
+材料data在dataTable上沒有按id順序，下次再調。還有要把CATEGORY以hash tag的方式使用。
+
+因為畫面很簡潔，這次rwd效果很不錯。
