@@ -11,21 +11,21 @@ const routes = [
     path: '/ingredient',
     name: 'ordingredienter',
     component: function () {
-      return import('../views/IngredientVue.vue')
+      return import('../views/IngredientView.vue')
     }
   },
   {
     path: '/dessert',
     name: 'dessert',
     component: function () {
-      return import('../views/DessertVue.vue')
+      return import('../views/DessertView.vue')
     }
   },
   {
     path: '/order',
     name: 'order',
     component: function () {
-      return import('../views/OrderVue.vue')
+      return import('../views/OrderView.vue')
     }
   }
 ]
