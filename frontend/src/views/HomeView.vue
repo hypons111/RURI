@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div id="home">
     <img id="logo" alt="Vue logo" src="../assets/images/ruri_logo_blue.png" />
   </div>
 </template>
@@ -8,7 +8,13 @@
 </script>
 
 <style scoped>
-#logo {
-  width: 10vw;
+#home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  #logo {
+    width: 20%;
+  }
 }
 </style>

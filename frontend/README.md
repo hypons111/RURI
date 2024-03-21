@@ -73,3 +73,23 @@ store.dispatch('actionName', payload 可選); // 使用action，actionName是act
 材料data在dataTable上沒有按id順序，下次再調。還有要把CATEGORY以hash tag的方式使用。
 
 因為畫面很簡潔，這次rwd效果很不錯。
+
+
+## 2024-03-21
+用`<component :is="switchComponent"></component>`控制modal內容，
+currentComponent是狀態，switchComponent根據currentComponent的狀態回傳適合的modal。
+```
+import ingredientModal from "./components/ingredientModal.vue";
+
+const currentComponent = ref("ingredient");
+
+const switchComponent = computed(() => {
+  switch (currentComponent.value) {
+    case "ingredient":
+      return ingredientModal;
+    case "dessert":
+    case "order":
+      alert("未有");
+  }
+});
+```

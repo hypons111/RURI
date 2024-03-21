@@ -37,9 +37,18 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                Modal title
-              </h1>
+              <div class="modal-title fs-5" id="exampleModalLabel">
+                <div class="input-group">
+                  <span class="input-group-text" id="">
+                    <font-awesome-icon :icon="['fas', 'plus']" />
+                  </span>
+                  <select class="form-select" v-model="currentComponent">
+                    <option value="ingredient" selected>Ingredient</option>
+                    <option value="dessert">Dessert</option>
+                    <option value="order">Order</option>
+                  </select>
+                </div>
+              </div>
               <button
                 type="button"
                 class="btn-close"
@@ -47,7 +56,9 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">...</div>
+            <div class="modal-body">
+              <component :is="switchComponent"></component>
+            </div>
             <div class="modal-footer">
               <font-awesome-icon
                 data-bs-dismiss="modal"
@@ -67,7 +78,19 @@
 <script setup>
 import { computed, ref, onMounted, inject } from "vue";
 import { useStore } from "vuex";
+import ingredientModal from "./components/ingredientModal.vue";
 const store = useStore();
+const currentComponent = ref("ingredient");
+
+const switchComponent = computed(() => {
+  switch (currentComponent.value) {
+    case "ingredient":
+      return ingredientModal;
+    case "dessert":
+    case "order":
+      alert("未有");
+  }
+});
 
 onMounted(async () => {
   store.dispatch("fetchAll");

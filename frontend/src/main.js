@@ -11,9 +11,9 @@ import url from './assets/js/url';
 import api from './assets/js/api';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlus, faPenToSquare, faHouse, faTrash, faJar, faCheese, faFileInvoiceDollar, faCheck, faXmark, faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPenToSquare, faHouse, faTrash, faJar, faCheese, faFileInvoiceDollar, faCheck, faXmark, faCopy, faArrowTurnUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-library.add(faPlus, faPenToSquare, faHouse, faTrash, faJar, faCheese, faFileInvoiceDollar, faCheck, faXmark, faCopy);
+library.add(faPlus, faPenToSquare, faHouse, faTrash, faJar, faCheese, faFileInvoiceDollar, faCheck, faXmark, faCopy, faArrowTurnUp);
 
 const app = createApp(App);
 app.provide('axios', axios);
