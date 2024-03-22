@@ -1,16 +1,14 @@
 <template>
   <div id="searchTable">
-    <form id="searchBar" class="wrapper">
-      <div class="row" v-for="item in searchBarArray" :key="item">
-        <div class="item">
-          <label class="sr-only" for="inlineFormInput">{{ item }}</label>
-          <input
-            type="text"
-            class="form-control"
-            :placeholder="item"
-            :aria-label="item"
-          />
-        </div>
+    <form id="searchBar" class="wrapper" :class="{ isHideSearchBar: isHideSearchBar }">
+      <div class="item searchInput" v-for="item in searchBarArray" :key="item">
+        <label class="sr-only" for="inlineFormInput">{{ item }}</label>
+        <input type="text" class="form-control" :placeholder="item" :aria-label="item" />
+      </div>
+      <div id="searchBottonWrapper" class="item">
+        <button id="searchBarSwitch" type="button" class="btn"
+          @click="isHideSearchBar = !isHideSearchBar"><font-awesome-icon :icon="['fas', 'up-down']" /></button>
+        <button id="searchBotton" type="button" class="btn">SEARCH</button>
       </div>
     </form>
 
@@ -55,6 +53,7 @@ import { useStore } from "vuex";
 const API = inject("API");
 const URL = inject("URL");
 const store = useStore();
+const isHideSearchBar = ref(false);
 
 onMounted(async () => {
   console.log(tableDataArray.value);
@@ -76,7 +75,8 @@ const tableDataArray = computed(() => store.state[pageName]);
   display: flex;
   flex-direction: column;
   height: 100%;
-  > * {
+
+  >* {
     width: 100%;
   }
 }
@@ -84,11 +84,42 @@ const tableDataArray = computed(() => store.state[pageName]);
 #searchBar {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1em;
+  gap: 1em 2em;
   padding: 1em;
-  background-color: var(--RURI-4);
-  .row {
-    margin: 0;
+
+  .item {
+    padding: 0;
+  }
+
+  #searchBottonWrapper {
+    display: flex;
+    justify-content: right;
+
+    #searchBarSwitch {
+      display: none;
+      color: var(--RURI-4);
+    }
+
+    #searchBotton {
+      color: var(--RURI-1);
+      background-color: var(--RURI-4);
+    }
+  }
+
+  input,
+  select,
+  textarea {
+    // border: 1px solid red;
+    color: var(--RURI-1);
+    color: rgba(57, 91, 116, 1);
+    padding-top: 4px;
+  }
+
+  & .form-select,
+  & input::placeholder,
+  & textarea::placeholder {
+    color: rgba(57, 91, 116, 0.5);
+    /* var(--RURI-1); */
   }
 }
 
@@ -102,6 +133,7 @@ const tableDataArray = computed(() => store.state[pageName]);
     table-layout: fixed;
     margin: 0;
   }
+
   #theadWrapper {
     background-color: white;
     padding-right: 1em;
@@ -124,6 +156,42 @@ const tableDataArray = computed(() => store.state[pageName]);
 }
 
 @media (max-width: 767.98px) {
+  #searchBar {
+
+    .searchInput,
+    #searchBotton {
+      display: block;
+    }
+
+    #searchBottonWrapper {
+      display: flex;
+      justify-content: space-between;
+
+      #searchBarSwitch {
+        display: block;
+        color: var(--RURI-4);
+      }
+
+      #searchBotton {
+        background-color: var(--RURI-4);
+      }
+    }
+    
+    // 隱藏 Search Bar
+    &.isHideSearchBar {
+      padding: 0 1em;
+
+      #searchBottonWrapper {
+        justify-content: center;
+      }
+
+      .searchInput,
+      #searchBotton {
+        display: none;
+      }
+    }
+  }
+
   #theadWrapper {
     display: none;
   }
@@ -139,13 +207,11 @@ const tableDataArray = computed(() => store.state[pageName]);
       width: 50%;
       display: inline !important;
       text-align: left;
-      // border: 1px solid red;
     }
 
     .tableValue {
       width: 50%;
       text-align: right;
-      // border: 1px solid red;
 
       svg:last-child {
         margin-left: 0.5em;

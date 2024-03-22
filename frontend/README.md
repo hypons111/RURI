@@ -93,3 +93,20 @@ const switchComponent = computed(() => {
   }
 });
 ```
+
+## 2024-03-22
+`<select>`和`<option>`都不支援svg(font awesome)。
+`<select>` 要改右邊嘅嘅icon顏色可以直接改 **fill** 和 **stroke**
+```
+  /* css selector {
+    --bs-form-select-bg-img: url(data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23395b74%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e);
+  } */
+```
+
+`@click`和`@change`之後的function可以不加()，而且可以直接在`function funcName(event)`使用event參數。
+
+`<button>`onclick時會切換 **isShow** boolean值，來控制`<div>`會不會套用 **isShow** 樣式。
+```
+<div :class="{ isShow: isShow }"></div>
+<button @click="isShow = !isShow"></button>
+```

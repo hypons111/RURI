@@ -14,7 +14,15 @@
   align-items: center;
 
   #logo {
-    width: 20%;
+    width: 30%;
   }
 }
+
+
+@media (max-width: 1199.98px) {
+  #logo {
+    width: 75%;
+  }
+}
+
 </style>

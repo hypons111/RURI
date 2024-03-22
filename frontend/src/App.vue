@@ -3,70 +3,46 @@
     <router-view class="view" />
 
     <nav class="nav">
-      <router-link to="/"
-        ><font-awesome-icon :icon="['fas', 'house']"
-      /></router-link>
-      <router-link to="/ingredient"
-        ><font-awesome-icon :icon="['fas', 'jar']"
-      /></router-link>
-      <router-link to="/dessert"
-        ><font-awesome-icon :icon="['fas', 'cheese']"
-      /></router-link>
-      <router-link to="/order"
-        ><font-awesome-icon :icon="['fas', 'file-invoice-dollar']"
-      /></router-link>
+      <router-link to="/"><font-awesome-icon :icon="['fas', 'house']" /></router-link>
+      <router-link to="/ingredient"><font-awesome-icon :icon="['fas', 'cubes-stacked']" /></router-link>
+      <router-link to="/dessert"><font-awesome-icon :icon="['fas', 'cheese']" /></router-link>
+      <router-link to="/order"><font-awesome-icon :icon="['fas', 'file-invoice-dollar']" /></router-link>
       <router-link to="/">
-        <font-awesome-icon
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-          :icon="['fas', 'plus']"
-        />
+        <font-awesome-icon data-bs-toggle="modal" data-bs-target="#createModal" :icon="['fas', 'plus']" />
       </router-link>
     </nav>
 
     <footer></footer>
 
     <div id="modalContainer">
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
+            
             <div class="modal-header">
-              <div class="modal-title fs-5" id="exampleModalLabel">
+              <div class="modal-title fs-5" id="createModalLabel">
                 <div class="input-group">
                   <span class="input-group-text" id="">
                     <font-awesome-icon :icon="['fas', 'plus']" />
                   </span>
                   <select class="form-select" v-model="currentComponent">
-                    <option value="ingredient" selected>Ingredient</option>
-                    <option value="dessert">Dessert</option>
-                    <option value="order">Order</option>
+                    <option value="ingredient" selected>INGREDIENT</option>
+                    <option value="dessert">DESSERT</option>
+                    <option value="order">ORDER</option>
                   </select>
                 </div>
               </div>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <font-awesome-icon class="btn-sm" data-bs-dismiss="modal" :icon="['fas', 'xmark']" />
             </div>
-            <div class="modal-body">
+
+            <!-- <div class="modal-body"> -->
               <component :is="switchComponent"></component>
-            </div>
-            <div class="modal-footer">
-              <font-awesome-icon
-                data-bs-dismiss="modal"
-                :icon="['fas', 'xmark']"
-              />
+            <!-- </div> -->
+            
+            <!-- <div class="modal-footer">
               <font-awesome-icon :icon="['fas', 'check']" />
-              <!-- <font-awesome-icon :icon="['fas', 'copy']" /> -->
-            </div>
+            </div> -->
+
           </div>
         </div>
       </div>
@@ -81,7 +57,6 @@ import { useStore } from "vuex";
 import ingredientModal from "./components/ingredientModal.vue";
 const store = useStore();
 const currentComponent = ref("ingredient");
-
 const switchComponent = computed(() => {
   switch (currentComponent.value) {
     case "ingredient":
@@ -116,7 +91,6 @@ onMounted(async () => {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  // border: 1px solid red;
 
   a {
     font-size: 2em;
