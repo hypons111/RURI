@@ -1,12 +1,13 @@
 import axios from 'axios';
 import URL from "./url";
 
+
 function axiosGet(apiName) {
   return axios.get(URL.url(apiName))
 }
 
-function axiosPost() {
-
+function axiosPost(apiName, requestData) {
+  return axios.post(URL.url(apiName), requestData)
 }
 
 function axiosPut() {

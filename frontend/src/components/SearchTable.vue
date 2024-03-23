@@ -1,14 +1,36 @@
 <template>
   <div id="searchTable">
-    <form id="searchBar" class="wrapper" :class="{ isHideSearchBar: isHideSearchBar }">
+    <form
+      id="searchBar"
+      class="wrapper"
+      :class="{ isHideSearchBar: isHideSearchBar }"
+    >
       <div class="item searchInput" v-for="item in searchBarArray" :key="item">
         <label class="sr-only" for="inlineFormInput">{{ item }}</label>
-        <input type="text" class="form-control" :placeholder="item" :aria-label="item" />
+        <input
+          type="text"
+          class="form-control"
+          :placeholder="item"
+          v-model="queryData[item]"
+        />
       </div>
       <div id="searchBottonWrapper" class="item">
-        <button id="searchBarSwitch" type="button" class="btn"
-          @click="isHideSearchBar = !isHideSearchBar"><font-awesome-icon :icon="['fas', 'up-down']" /></button>
-        <button id="searchBotton" type="button" class="btn">SEARCH</button>
+        <button
+          id="searchBarSwitch"
+          type="button"
+          class="btn"
+          @click="isHideSearchBar = !isHideSearchBar"
+        >
+          <font-awesome-icon :icon="['fas', 'up-down']" />
+        </button>
+        <button
+          id="searchBotton"
+          type="button"
+          class="btn"
+          @click="queryIngredients()"
+        >
+          SEARCH
+        </button>
       </div>
     </form>
 
@@ -54,6 +76,11 @@ const API = inject("API");
 const URL = inject("URL");
 const store = useStore();
 const isHideSearchBar = ref(false);
+const queryData = ref({
+  id: "",
+  name: "",
+  category: "",
+});
 
 onMounted(async () => {
   console.log(tableDataArray.value);
@@ -68,6 +95,17 @@ const props = defineProps({
 const pageName = props.pageName;
 const tableHeaderArray = props.tableHeaderArray;
 const tableDataArray = computed(() => store.state[pageName]);
+
+function queryIngredients() {
+  const requestData = {};
+  for (const key in queryData.value) {
+    if (queryData.value[key]) requestData[key] = queryData.value[key];
+  }
+  console.log(requestData);
+  API.axiosPost("queryIngredients", requestData.value).then((response) => {
+    console.log(response);
+  });
+}
 </script>
 
 <style scoped lang="scss">
@@ -76,7 +114,7 @@ const tableDataArray = computed(() => store.state[pageName]);
   flex-direction: column;
   height: 100%;
 
-  >* {
+  > * {
     width: 100%;
   }
 }
@@ -157,7 +195,6 @@ const tableDataArray = computed(() => store.state[pageName]);
 
 @media (max-width: 767.98px) {
   #searchBar {
-
     .searchInput,
     #searchBotton {
       display: block;
@@ -176,7 +213,7 @@ const tableDataArray = computed(() => store.state[pageName]);
         background-color: var(--RURI-4);
       }
     }
-    
+
     // 隱藏 Search Bar
     &.isHideSearchBar {
       padding: 0 1em;
