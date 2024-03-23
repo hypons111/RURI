@@ -16,3 +16,16 @@ __!__ Atlas 暫時只可以開 0.0.0.0/0 先連到，放到最後先解決。
 node.js 後端有 **cors** 套件用嚟處理 CORS 問題，好方便。
 
 要喺根目錄用 `git subtree push --prefix backend heroku main` 推去 heroku.
+
+
+
+## 2024-03-23
+加入 query ingredient by { id, name, category }。
+動態條件查詢要加呢段嚟篩走無用到嘅條件：
+```
+  for (const key in req.body) {
+    if (req.body[key]) {
+      requestData[key] = req.body[key]
+    }
+  }
+```

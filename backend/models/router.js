@@ -15,6 +15,20 @@ router.get("/getAllIngredients", async (req, res) => {
   } catch (error) { res.status(500).send("ERROR : " + error); }
 });
 
+/* query 材料 */
+router.post("/queryIngredients", async (req, res) => {
+  const requestData = {}
+  for (const key in req.body) {
+    if (req.body[key]) {
+      requestData[key] = req.body[key]
+    }
+  }
+  try {
+    const ingredients = await Ingredient.find(requestData, { _id: false }); // 排除 _id
+    res.send(ingredients);
+  } catch (error) { res.status(500).send("ERROR : " + error); }
+});
+
 /* 全部甜品 */
 router.get("/getAllDesserts", async (req, res) => {
   try {
