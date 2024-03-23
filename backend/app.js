@@ -2,9 +2,9 @@ require('dotenv').config();  // 要用 .env 存取全域變數就要安裝 doten
 const express = require("express");
 const cors = require('cors');
 const mongoose = require('mongoose');
-const app = express();
 const PORT = process.env.PORT;  // 從 .env 取得 PORT 常數
 const DATABASE_URL = process.env.DATABASE_URL;  // 從 .env 取得 DATABASE_URL 常數
+const app = express();
 const router = require('./models/router');  // 路由處理器
 
 /* 監聽 port:3000 */
@@ -14,6 +14,10 @@ app.listen(PORT, () => {
 
 /* 處理 CORS */
 app.use(cors());
+
+/* 解析 request body */// 一定要喺 app.use("/RURI", router) 前使用
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 /* 加前綴到路由處理器 */
 app.use("/RURI", router);

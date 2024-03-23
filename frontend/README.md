@@ -94,6 +94,7 @@ const switchComponent = computed(() => {
 });
 ```
 
+
 ## 2024-03-22
 `<select>`和`<option>`都不支援svg(font awesome)。
 `<select>` 要改右邊嘅嘅icon顏色可以直接改 **fill** 和 **stroke**
@@ -110,3 +111,7 @@ const switchComponent = computed(() => {
 <div :class="{ isShow: isShow }"></div>
 <button @click="isShow = !isShow"></button>
 ```
+
+
+## 2024-03-23
+全撈**INGREDIENTS**資料轉咗放喺`ALL_INGREDIENTS`，**INGREDIENTS**用嚟顯示查詢出嚟嘅結果（**DESSERTS**同**ORDERS**都係）。

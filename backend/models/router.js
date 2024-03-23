@@ -23,7 +23,6 @@ router.post("/queryIngredients", async (req, res) => {
       requestData[key] = req.body[key]
     }
   }
-  console.log(requestData)
   try {
     const ingredients = await Ingredient.find(requestData, { _id: false }); // 排除 _id
     res.send(ingredients);

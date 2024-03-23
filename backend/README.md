@@ -20,12 +20,23 @@ node.js 後端有 **cors** 套件用嚟處理 CORS 問題，好方便。
 
 
 ## 2024-03-23
-加入 query ingredient by { id, name, category }。
-動態條件查詢要加呢段嚟篩走無用到嘅條件：
+動態條件查詢要加`for in`篩走無用嘅條件：
 ```
+router.post("/queryIngredients", async (req, res) => {
+  const requestData = {}
   for (const key in req.body) {
     if (req.body[key]) {
       requestData[key] = req.body[key]
     }
   }
+  try {
+    const ingredients = await Ingredient.find(requestData, { _id: false }); // 排除 _id
+    res.send(ingredients);
+  } catch (error) { res.status(500).send("ERROR : " + error); }
+});
 ```
+
+用嚟解析 request body，如果唔係`req.body`會係undefined。
+一定要喺加喺`app.use("/RURI", router)`之前。
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());

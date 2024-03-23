@@ -2,23 +2,38 @@
   <div id="rootContainer">
     <router-view class="view" />
 
-    <nav class="nav">
-      <router-link to="/"><font-awesome-icon :icon="['fas', 'house']" /></router-link>
-      <router-link to="/ingredient"><font-awesome-icon :icon="['fas', 'cubes-stacked']" /></router-link>
-      <router-link to="/dessert"><font-awesome-icon :icon="['fas', 'cheese']" /></router-link>
-      <router-link to="/order"><font-awesome-icon :icon="['fas', 'file-invoice-dollar']" /></router-link>
+    <nav id="nav">
+      <router-link to="/"
+        ><font-awesome-icon :icon="['fas', 'house']"
+      /></router-link>
+      <router-link to="/ingredient"
+        ><font-awesome-icon :icon="['fas', 'cubes-stacked']"
+      /></router-link>
+      <router-link to="/dessert"
+        ><font-awesome-icon :icon="['fas', 'cheese']"
+      /></router-link>
+      <router-link to="/order"
+        ><font-awesome-icon :icon="['fas', 'file-invoice-dollar']"
+      /></router-link>
       <router-link to="/">
-        <font-awesome-icon data-bs-toggle="modal" data-bs-target="#createModal" :icon="['fas', 'plus']" />
+        <font-awesome-icon
+          data-bs-toggle="modal"
+          data-bs-target="#createModal"
+          :icon="['fas', 'plus']"
+        />
       </router-link>
     </nav>
 
-    <footer></footer>
-
     <div id="modalContainer">
-      <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="createModal"
+        tabindex="-1"
+        aria-labelledby="createModalLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog">
           <div class="modal-content">
-            
             <div class="modal-header">
               <div class="modal-title fs-5" id="createModalLabel">
                 <div class="input-group">
@@ -32,17 +47,20 @@
                   </select>
                 </div>
               </div>
-              <font-awesome-icon class="btn-sm" data-bs-dismiss="modal" :icon="['fas', 'xmark']" />
+              <font-awesome-icon
+                class="btn-sm"
+                data-bs-dismiss="modal"
+                :icon="['fas', 'xmark']"
+              />
             </div>
 
             <!-- <div class="modal-body"> -->
-              <component :is="switchComponent"></component>
+            <component :is="switchComponent"></component>
             <!-- </div> -->
-            
+
             <!-- <div class="modal-footer">
               <font-awesome-icon :icon="['fas', 'check']" />
             </div> -->
-
           </div>
         </div>
       </div>
@@ -81,16 +99,17 @@ onMounted(async () => {
 }
 
 .view {
-  height: 90%;
+  height: calc(100% - 34px - 2em);
 }
 
-.nav {
+#nav {
   width: 100%;
-  height: 10%;
+  height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  padding: 1em 0;
 
   a {
     font-size: 2em;

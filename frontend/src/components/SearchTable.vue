@@ -14,17 +14,12 @@
           v-model="queryData[item]"
         />
       </div>
-      <div id="searchBottonWrapper" class="item">
-        <button
-          id="searchBarSwitch"
-          type="button"
-          class="btn"
-          @click="isHideSearchBar = !isHideSearchBar"
-        >
-          <font-awesome-icon :icon="['fas', 'up-down']" />
+      <div id="bottonGroup" class="item">
+        <button id="clearButton" type="button" class="btn" @click="initial()">
+          CLEAR
         </button>
         <button
-          id="searchBotton"
+          id="searchButton"
           type="button"
           class="btn"
           @click="queryIngredients()"
@@ -32,6 +27,15 @@
           SEARCH
         </button>
       </div>
+
+      <button
+        id="searchBarSwitch"
+        type="button"
+        class="btn"
+        @click="isHideSearchBar = !isHideSearchBar"
+      >
+        <font-awesome-icon :icon="['fas', 'up-down']" />
+      </button>
     </form>
 
     <div id="dataTable" class="wrapper">
@@ -101,10 +105,16 @@ function queryIngredients() {
   for (const key in queryData.value) {
     if (queryData.value[key]) requestData[key] = queryData.value[key];
   }
-  console.log(requestData);
-  API.axiosPost("queryIngredients", requestData.value).then((response) => {
-    console.log(response);
+  API.axiosPost("queryIngredients", requestData).then((response) => {
+    store.commit("SET_INGREDIENTS", response.data);
   });
+}
+
+function initial() {
+  store.commit("SET_INGREDIENTS", store.state[`ALL_${pageName}`]);
+  for (const key in queryData.value) {
+    queryData.value[key] = "";
+  }
 }
 </script>
 
@@ -129,19 +139,29 @@ function queryIngredients() {
     padding: 0;
   }
 
-  #searchBottonWrapper {
+  #bottonGroup {
     display: flex;
     justify-content: right;
 
-    #searchBarSwitch {
-      display: none;
-      color: var(--RURI-4);
+    & button {
+      flex-grow: 1;
     }
 
-    #searchBotton {
+    #clearButton,
+    #searchButton {
+      margin-right: 0.5em;
       color: var(--RURI-1);
       background-color: var(--RURI-4);
     }
+
+    & button:last-child {
+      margin-right: 0 !important;
+    }
+  }
+
+  #searchBarSwitch {
+    display: none;
+    color: var(--RURI-4);
   }
 
   input,
@@ -195,37 +215,9 @@ function queryIngredients() {
 
 @media (max-width: 767.98px) {
   #searchBar {
-    .searchInput,
-    #searchBotton {
-      display: block;
-    }
-
-    #searchBottonWrapper {
+    #bottonGroup {
       display: flex;
       justify-content: space-between;
-
-      #searchBarSwitch {
-        display: block;
-        color: var(--RURI-4);
-      }
-
-      #searchBotton {
-        background-color: var(--RURI-4);
-      }
-    }
-
-    // 隱藏 Search Bar
-    &.isHideSearchBar {
-      padding: 0 1em;
-
-      #searchBottonWrapper {
-        justify-content: center;
-      }
-
-      .searchInput,
-      #searchBotton {
-        display: none;
-      }
     }
   }
 
@@ -252,6 +244,30 @@ function queryIngredients() {
 
       svg:last-child {
         margin-left: 0.5em;
+      }
+    }
+  }
+
+  @media (max-width: 464px) {
+    #searchBar {
+      #bottonGroup {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #searchBarSwitch {
+        display: block;
+        color: var(--RURI-4);
+      }
+
+      // 隱藏 Search Bar
+      &.isHideSearchBar {
+        padding: 0 1em;
+
+        #bottonGroup,
+        .searchInput {
+          display: none;
+        }
       }
     }
   }
