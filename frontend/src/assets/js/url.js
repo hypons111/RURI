@@ -9,7 +9,8 @@ function url(name) {
     getAllIngredients: '/getAllIngredients', /* 全部材料 */
     getAllDesserts: '/getAllDesserts', /* 全部甜品 */
     getAllOrders: '/getAllOrders', /* 全部訂單 */
-    queryIngredients: '/queryIngredients', /* 材料 */
+    queryIngredients: '/queryIngredients', /* 查詢材料 */
+    addIngredient: '/addIngredient', /* 新增材料 */
   }
   return BASE_URL + APP_NAME + apis[name];
 }

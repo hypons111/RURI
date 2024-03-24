@@ -86,9 +86,7 @@ const queryData = ref({
   category: "",
 });
 
-onMounted(async () => {
-  console.log(tableDataArray.value);
-});
+onMounted(async () => {});
 
 const props = defineProps({
   pageName: String,

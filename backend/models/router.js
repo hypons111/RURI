@@ -10,12 +10,12 @@ router.get("/home", (req, res) => {
 /* 全部材料 */
 router.get("/getAllIngredients", async (req, res) => {
   try {
-    const ingredients = await Ingredient.find({}, { _id: false }); // 排除 _id
+    const ingredients = await Ingredient.find({}, { _id: false, __v: false }); // 排除 _id, __v
     res.send(ingredients);
   } catch (error) { res.status(500).send("ERROR : " + error); }
 });
 
-/* query 材料 */
+/* 查詢材料 */
 router.post("/queryIngredients", async (req, res) => {
   const requestData = {}
   for (const key in req.body) {
@@ -24,9 +24,23 @@ router.post("/queryIngredients", async (req, res) => {
     }
   }
   try {
-    const ingredients = await Ingredient.find(requestData, { _id: false }); // 排除 _id
+    const ingredients = await Ingredient.find(requestData, { _id: false, __v: false });
     res.send(ingredients);
   } catch (error) { res.status(500).send("ERROR : " + error); }
+});
+
+/* 新增材料 */
+router.post("/addIngredient", async (req, res) => {
+  const requestData = {}
+  for (const key in req.body) {
+    if (req.body[key]) {
+      requestData[key] = req.body[key]
+    }
+  }
+  const newIngredient = new Ingredient(requestData);
+  newIngredient.save()
+    .then(() => res.send([true, "success"]))
+    .catch(error => res.send([false, error]))
 });
 
 /* 全部甜品 */

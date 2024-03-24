@@ -40,3 +40,25 @@ router.post("/queryIngredients", async (req, res) => {
 一定要喺加喺`app.use("/RURI", router)`之前。
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+
+
+## 2024-03-24
+```
+router.post("/addIngredient", async (req, res) => {
+  const requestData = {}
+  
+  /* 新增暫時用`for in`檢查資料，之後轉用**schema**檢查。 */
+  for (const key in req.body) {
+    if (req.body[key]) {
+      requestData[key] = req.body[key]
+    }
+  }
+  const newIngredient = new Ingredient(requestData);  // 宣告模型 = new schema(請求資料);
+  newIngredient.save()
+  
+    /* response回傳一個長度為**2**陣列俾前端：response[0]係請求有無成功執行嘅boolean，response[1]係成功／失敗信息。*/
+    .then(() => res.send([true, "success"]))
+    .catch(error => res.send([false, error]))
+});
+```

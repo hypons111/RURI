@@ -53,21 +53,13 @@
                 :icon="['fas', 'xmark']"
               />
             </div>
-
-            <!-- <div class="modal-body"> -->
             <component :is="switchComponent"></component>
-            <!-- </div> -->
-
-            <!-- <div class="modal-footer">
-              <font-awesome-icon :icon="['fas', 'check']" />
-            </div> -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 
 <script setup>
 import { computed, ref, onMounted, inject } from "vue";
