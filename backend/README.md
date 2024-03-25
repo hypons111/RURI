@@ -30,7 +30,7 @@ router.post("/queryIngredients", async (req, res) => {
     }
   }
   try {
-    const ingredients = await Ingredient.find(requestData, { _id: false }); // 排除 _id
+    const ingredients = await Ingredient.find(requestData, { __v: false  }); // 排除 __v，__v係mongoDB內部資料
     res.send(ingredients);
   } catch (error) { res.status(500).send("ERROR : " + error); }
 });
@@ -62,3 +62,33 @@ router.post("/addIngredient", async (req, res) => {
     .catch(error => res.send([false, error]))
 });
 ```
+
+
+## 2024-03-25
+改寫 router 嘅結構，統一用 `.then().catch()`。
+
+mongoose CRUD 方法：
+### Create
+`.save(options, callback)`
+options (Object, 可選): 保存操作的選項。
+callback (Function, 可選): 保存操作完成後的回調函數。如果未提供，.save() 會返回一個 Promise。
+
+### Read
+`.find(query, projection, options, callback)` 
+query (Object): 用於匹配文檔的查詢條件。
+projection (Object, 可選): 指定返回的字段。如果不指定，則返回所有字段。
+options (Object, 可選): 包括限制、跳過、排序等選項。
+callback (Function, 可選): 查詢完成後的回調函數。如果未提供，.find() 會返回一個 Promise。
+
+### Update
+`.findByIdAndUpdate(id, update, options, callback)`
+id (ObjectID | String): 要查找的文檔的 _id。
+update (Object): 要應用於文檔的更新操作。
+options (Object, 可選): 包括 new, upsert 等選項。new: true 會返回更新後的文檔。
+callback (Function, 可選): 操作完成後的回調函數。如果未提供，方法返回一個 Promise。
+
+### Delete
+`.findOneAndDelete(filter, options, callback)`
+filter (Object): 用於匹配文檔的查詢條件。
+options (Object, 可選): 包括限制、排序等選項。
+callback (Function, 可選): 操作完成後的回調函數。如果未提供，方法返回一個 Promise。

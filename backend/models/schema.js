@@ -8,7 +8,7 @@ const ingredientSchema = new mongoose.Schema({
   stock: Number,
   unitcost: Number,
   remark: String
-})
+}, { collection: 'ingredients' })
 
 const dessertSchema = new mongoose.Schema({
   id: String,
@@ -16,7 +16,7 @@ const dessertSchema = new mongoose.Schema({
   ingredients: Array,
   cost: Number,
   remark: String
-})
+}, { collection: 'desserts' })
 
 const orderSchema = new mongoose.Schema({
   id: String,
@@ -25,7 +25,7 @@ const orderSchema = new mongoose.Schema({
   createdate: Date,
   shippingdate: Date,
   remark: String,
-})
+}, { collection: 'orders' })
 
 module.exports = {
   Ingredient: mongoose.model('Ingredient', ingredientSchema),

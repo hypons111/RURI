@@ -53,15 +53,20 @@
         <table class="table table-striped">
           <tbody>
             <tr v-for="item in tableDataArray" :key="item">
-              <td v-for="(value, key) in item" :key="value">
+              <td v-for="(value, key) in item" :key="value" :class="key">
                 <label for="">{{ key.toUpperCase() }} : </label>
                 <div class="tableValue">{{ value }}</div>
               </td>
               <td>
-                <label for="">Option : </label>
                 <div class="tableValue">
-                  <font-awesome-icon :icon="['fas', 'pen-to-square']" />
-                  <font-awesome-icon :icon="['fas', 'trash']" />
+                  <font-awesome-icon
+                    :icon="['fas', 'pen-to-square']"
+                    @click="editIngredient(item)"
+                  />
+                  <font-awesome-icon
+                    :icon="['fas', 'trash']"
+                    @click="deleteIngredient(item._id)"
+                  />
                 </div>
               </td>
             </tr>
@@ -113,6 +118,23 @@ function initial() {
   for (const key in queryData.value) {
     queryData.value[key] = "";
   }
+}
+
+function editIngredient(item) {
+  console.log(item);
+}
+
+function deleteIngredient(_id) {
+  const queryData = {
+    _id,
+  };
+  API.axiosPost("deleteIngredient", queryData).then((response) => {
+    if (response.data) {
+    } else {
+      console.log(`[_id] : ${_id}`);
+      console.log(response);
+    }
+  });
 }
 </script>
 
@@ -198,6 +220,10 @@ function initial() {
   #tbodyWrapper {
     height: 100%;
     overflow-y: auto;
+
+    ._id {
+      display: none;
+    }
 
     label {
       display: none;

@@ -11,6 +11,8 @@ function url(name) {
     getAllOrders: '/getAllOrders', /* 全部訂單 */
     queryIngredients: '/queryIngredients', /* 查詢材料 */
     addIngredient: '/addIngredient', /* 新增材料 */
+    editIngredient: '/editIngredient', /* 新增材料 */
+    deleteIngredient: '/deleteIngredient', /* 新增材料 */
   }
   return BASE_URL + APP_NAME + apis[name];
 }

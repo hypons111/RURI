@@ -115,3 +115,8 @@ const switchComponent = computed(() => {
 
 ## 2024-03-23
 全撈**INGREDIENTS**資料轉咗放喺`ALL_INGREDIENTS`，**INGREDIENTS**用嚟顯示查詢出嚟嘅結果（**DESSERTS**同**ORDERS**都係）。
+
+
+## 2024-03-25
+而家ingredient嘅edit, delete都寫咗喺SerchTable.vue conponent入面，下次要諗下啲樣拆返出嚟。
+

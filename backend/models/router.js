@@ -8,55 +8,79 @@ router.get("/home", (req, res) => {
 })
 
 /* 全部材料 */
-router.get("/getAllIngredients", async (req, res) => {
-  try {
-    const ingredients = await Ingredient.find({}, { _id: false, __v: false }); // 排除 _id, __v
-    res.send(ingredients);
-  } catch (error) { res.status(500).send("ERROR : " + error); }
+router.get("/getAllIngredients", (req, res) => {
+  Ingredient.find({}, { __v: false })
+    .then(ingredients => res.send([true, ingredients]))
+    .catch(error => res.send([false, error.message]))
+});
+
+/* 全部甜品 */
+router.get("/getAllDesserts", (req, res) => {
+  Dessert.find({}, { __v: false })
+    .then(desserts => res.send([true, desserts]))
+    .catch(error => res.send([false, error.message]))
+});
+
+/* 全部訂單 */
+router.get("/getAllOrders", (req, res) => {
+  Order.find({}, { __v: false })
+    .then(orders => res.send([true, orders]))
+    .catch(error => res.send([false, error.message]))
 });
 
 /* 查詢材料 */
-router.post("/queryIngredients", async (req, res) => {
+router.post("/queryIngredients", (req, res) => {
   const requestData = {}
   for (const key in req.body) {
     if (req.body[key]) {
       requestData[key] = req.body[key]
     }
   }
-  try {
-    const ingredients = await Ingredient.find(requestData, { _id: false, __v: false });
-    res.send(ingredients);
-  } catch (error) { res.status(500).send("ERROR : " + error); }
+  Ingredient.find(requestData, { __v: false })
+    .then(ingredients => res.send([true, ingredients]))
+    .catch(error => res.send([false, error.message]))
 });
 
 /* 新增材料 */
-router.post("/addIngredient", async (req, res) => {
+router.post("/addIngredient", (req, res) => {
   const requestData = {}
   for (const key in req.body) {
-    if (req.body[key]) {
+    if (req.body[key] && key !== "_id") {
       requestData[key] = req.body[key]
     }
   }
   const newIngredient = new Ingredient(requestData);
   newIngredient.save()
     .then(() => res.send([true, "success"]))
-    .catch(error => res.send([false, error]))
+    .catch(error => res.send([false, error.message]))
 });
 
-/* 全部甜品 */
-router.get("/getAllDesserts", async (req, res) => {
-  try {
-    const desserts = await Dessert.find({}, { _id: false });
-    res.send(desserts);
-  } catch (error) { res.status(500).send("ERROR : " + error); }
+/* 修改材料 */
+router.post("/editIngredient", (req, res) => {
+  const requestData = {};
+  for (const key in req.body) {
+    if (req.body[key] && key !== "_id") {
+      requestData[key] = req.body[key]
+    }
+  }
+  Ingredient.findByIdAndUpdate(req.body._id, requestData, { new: true })
+    .then(response => res.send([true, response]))
+    .catch(error => res.send([false, error.message]))
 });
 
-/* 全部訂單 */
-router.get("/getAllOrders", async (req, res) => {
-  try {
-    const orders = await Order.find({}, { _id: false });
-    res.send(orders);
-  } catch (error) { res.status(500).send("ERROR : " + error); }
+/* 刪除材料 */
+router.post("/deleteIngredient", (req, res) => {
+  const requestData = {
+    _id: ""
+  }
+  if (req.body._id) requestData._id = req.body._id;
+  Ingredient.findOneAndDelete(requestData)
+    .then(response => {
+      if (response) return res.send([true, "success"]);
+      else return res.send([false, "資料庫沒有相關資料。"]);
+    })
+    .catch(error => res.send([false, error.message]))
 });
+
 
 module.exports = router;
