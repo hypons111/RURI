@@ -28,12 +28,7 @@
       <div class="mb-4">
         <div class="input-group">
           <div v-if="isNewCategory" class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="category"
-              v-model="requestData.category"
-            />
+            <input type="text" class="form-control" placeholder="category" />
             <button
               class="btn btn-outline-secondary"
               type="button"
@@ -53,10 +48,11 @@
               @change="onChangeGategory"
               v-model="requestData.category"
             >
-              <option value="0" selected disabled>category</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option value="" selected disabled>category</option>
+              <option value="1">粥</option>
+              <option value="2">粉</option>
+              <option value="3">麵</option>
+              <option value="3">飯</option>
             </select>
             <button
               class="btn btn-outline-secondary"
@@ -112,7 +108,7 @@
 </template>
 
 <script setup>
-import { ref, inject, onMounted } from "vue";
+import { computed, ref, inject, onMounted } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
 const API = inject("API");
@@ -122,12 +118,17 @@ const isNewCategory = ref(false);
 const requestData = {
   name: "",
   unit: "",
-  category: "0",
+  category: "",
   stock: "",
   unitcost: "",
   remark: "",
   option: "",
 };
+
+const props = defineProps({
+  editData: String,
+});
+
 function onChangeGategory(event) {
   isSolidColor.value = event.target.value === "0" ? false : true;
 }

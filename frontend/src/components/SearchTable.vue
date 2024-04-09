@@ -6,12 +6,11 @@
       :class="{ isHideSearchBar: isHideSearchBar }"
     >
       <div class="item searchInput" v-for="item in searchBarArray" :key="item">
-        <label class="sr-only" for="inlineFormInput">{{ item }}</label>
         <input
           type="text"
           class="form-control"
           :placeholder="item"
-          v-model="queryData[item]"
+          v-model.trim="queryData[item]"
         />
       </div>
       <div id="bottonGroup" class="item">
@@ -48,7 +47,6 @@
           </thead>
         </table>
       </div>
-
       <div id="tbodyWrapper">
         <table class="table table-striped">
           <tbody>
@@ -60,6 +58,8 @@
               <td>
                 <div class="tableValue">
                   <font-awesome-icon
+                    data-bs-toggle="modal"
+                    data-bs-target="#createModal"
                     :icon="['fas', 'pen-to-square']"
                     @click="editIngredient(item)"
                   />
@@ -74,42 +74,37 @@
         </table>
       </div>
     </div>
+    <UpdateModal :editData="editData"></UpdateModal>
   </div>
 </template>
 
 <script setup>
 import { computed, ref, onMounted, inject } from "vue";
 import { useStore } from "vuex";
-
+import UpdateModal from "@/components/UpdateModal.vue";
 const API = inject("API");
 const URL = inject("URL");
-const store = useStore();
 const isHideSearchBar = ref(false);
-const queryData = ref({
-  id: "",
-  name: "",
-  category: "",
-});
-
-onMounted(async () => {});
-
+const queryData = ref({});
+const store = useStore();
+const tableDataArray = computed(() => store.state[pageName]);
 const props = defineProps({
   pageName: String,
   searchBarArray: Array,
   tableHeaderArray: Array,
 });
-
 const pageName = props.pageName;
 const tableHeaderArray = props.tableHeaderArray;
-const tableDataArray = computed(() => store.state[pageName]);
+const editData = ref({});
 
 function queryIngredients() {
+  console.log(queryData);
   const requestData = {};
   for (const key in queryData.value) {
-    if (queryData.value[key]) requestData[key] = queryData.value[key];
+    if (queryData.value[key]) requestData[key] = queryData.value[key].trim();
   }
   API.axiosPost("queryIngredients", requestData).then((response) => {
-    store.commit("SET_INGREDIENTS", response.data);
+    store.commit(`SET_${pageName}`, response.data[1]);
   });
 }
 
@@ -121,7 +116,12 @@ function initial() {
 }
 
 function editIngredient(item) {
-  console.log(item);
+  const obj = {
+    name: "kin",
+  };
+  editData.value = obj;
+  console.log(obj);
+  console.log(editData);
 }
 
 function deleteIngredient(_id) {
@@ -169,7 +169,7 @@ function deleteIngredient(_id) {
 
     #clearButton,
     #searchButton {
-      margin-right: 0.5em;
+      margin-right: 1em;
       color: var(--RURI-1);
       background-color: var(--RURI-4);
     }

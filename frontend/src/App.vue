@@ -15,7 +15,7 @@
       <router-link to="/order"
         ><font-awesome-icon :icon="['fas', 'file-invoice-dollar']"
       /></router-link>
-      <router-link to="/">
+      <router-link to="" id="showUpdateModalBotton">
         <font-awesome-icon
           data-bs-toggle="modal"
           data-bs-target="#createModal"
@@ -23,59 +23,14 @@
         />
       </router-link>
     </nav>
-
-    <div id="modalContainer">
-      <div
-        class="modal fade"
-        id="createModal"
-        tabindex="-1"
-        aria-labelledby="createModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="modal-title fs-5" id="createModalLabel">
-                <div class="input-group">
-                  <span class="input-group-text" id="">
-                    <font-awesome-icon :icon="['fas', 'plus']" />
-                  </span>
-                  <select class="form-select" v-model="currentComponent">
-                    <option value="ingredient" selected>INGREDIENT</option>
-                    <option value="dessert">DESSERT</option>
-                    <option value="order">ORDER</option>
-                  </select>
-                </div>
-              </div>
-              <font-awesome-icon
-                class="btn-sm"
-                data-bs-dismiss="modal"
-                :icon="['fas', 'xmark']"
-              />
-            </div>
-            <component :is="switchComponent"></component>
-          </div>
-        </div>
-      </div>
-    </div>
+    <updateModal> </updateModal>
   </div>
 </template>
 
 <script setup>
 import { computed, ref, onMounted, inject } from "vue";
 import { useStore } from "vuex";
-import ingredientModal from "./components/ingredientModal.vue";
 const store = useStore();
-const currentComponent = ref("ingredient");
-const switchComponent = computed(() => {
-  switch (currentComponent.value) {
-    case "ingredient":
-      return ingredientModal;
-    case "dessert":
-    case "order":
-      alert("未有");
-  }
-});
 
 onMounted(async () => {
   store.dispatch("fetchAll");

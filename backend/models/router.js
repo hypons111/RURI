@@ -14,26 +14,16 @@ router.get("/getAllIngredients", (req, res) => {
     .catch(error => res.send([false, error.message]))
 });
 
-/* 全部甜品 */
-router.get("/getAllDesserts", (req, res) => {
-  Dessert.find({}, { __v: false })
-    .then(desserts => res.send([true, desserts]))
-    .catch(error => res.send([false, error.message]))
-});
-
-/* 全部訂單 */
-router.get("/getAllOrders", (req, res) => {
-  Order.find({}, { __v: false })
-    .then(orders => res.send([true, orders]))
-    .catch(error => res.send([false, error.message]))
-});
-
 /* 查詢材料 */
 router.post("/queryIngredients", (req, res) => {
   const requestData = {}
   for (const key in req.body) {
     if (req.body[key]) {
-      requestData[key] = req.body[key]
+      if (key === "name" || key === "remark") {
+        requestData[key] = { $regex: req.body[key], $options: 'i' };
+      } else {
+        requestData[key] = req.body[key]
+      }
     }
   }
   Ingredient.find(requestData, { __v: false })
@@ -82,5 +72,17 @@ router.post("/deleteIngredient", (req, res) => {
     .catch(error => res.send([false, error.message]))
 });
 
+/* 全部甜品 */
+router.get("/getAllDesserts", (req, res) => {
+  Dessert.find({}, { __v: false })
+    .then(desserts => res.send([true, desserts]))
+    .catch(error => res.send([false, error.message]))
+});
 
+/* 全部訂單 */
+router.get("/getAllOrders", (req, res) => {
+  Order.find({}, { __v: false })
+    .then(orders => res.send([true, orders]))
+    .catch(error => res.send([false, error.message]))
+});
 module.exports = router;
