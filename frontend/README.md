@@ -120,3 +120,9 @@ const switchComponent = computed(() => {
 ## 2024-03-25
 而家ingredient嘅edit, delete都寫咗喺SerchTable.vue conponent入面，下次要諗下啲樣拆返出嚟。
 
+
+## 2024-04-09
+`.trim()` 在 vue 的用法。
+```
+<input type="text" v-model.trim="item"/>
+```

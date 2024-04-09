@@ -92,3 +92,13 @@ callback (Function, 可選): 操作完成後的回調函數。如果未提供，
 filter (Object): 用於匹配文檔的查詢條件。
 options (Object, 可選): 包括限制、排序等選項。
 callback (Function, 可選): 操作完成後的回調函數。如果未提供，方法返回一個 Promise。
+
+
+## 2024-04-09
+mongoDB 模糊查詢係以 regEx 嚟查，
+```
+const string = "蛋"；
+requestData = { $regex: string, $options: 'i' };
+// "蛋"，"雞蛋"、"蛋糕"、"煎蛋" 等都會被匹配
+// 更複雜的匹配模式（例如，只匹配以 "蛋" 開頭），就要在模式字符串中加入相應的正則表達式語法。
+```
