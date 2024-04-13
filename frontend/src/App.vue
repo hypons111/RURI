@@ -33,7 +33,7 @@ import { computed, ref, onMounted, inject } from "vue";
 import { useStore } from "vuex";
 import UpdateModal from "@/components/UpdateModal.vue";
 const store = useStore();
-const currentOption = computed(() => store.state.CURRENT_OPTION);
+const currentOption = computed(() => store.getters.CURRENT_OPTION);
 
 onMounted(async () => {
   store.dispatch("fetchAll");
@@ -43,7 +43,7 @@ function onclickUpdateModalButton() {
   // 改變 modal 為新增
   store.commit("SET_CURRENT_OPTION", "add");
   // 清空 CURRENT_DATA 的值
-  const obj = store.state.CURRENT_DATA;
+  const obj = store.getters.CURRENT_DATA;
   for (const key in obj) {
     obj[key] = "";
   }

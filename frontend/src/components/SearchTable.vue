@@ -86,8 +86,8 @@ const API = inject("API");
 const isHideSearchBar = ref(false);
 const queryData = ref({});
 const store = useStore();
-const currentOption = computed(() => store.state.CURRENT_OPTION);
-const tableDataArray = computed(() => store.state[pageName]);
+const currentOption = computed(() => store.getters.CURRENT_OPTION);
+const tableDataArray = computed(() => store.getters[pageName]);
 const props = defineProps({
   pageName: String,
   searchBarArray: Array,
@@ -115,7 +115,7 @@ function queryIngredients() {
 }
 
 function initial() {
-  store.commit("SET_INGREDIENTS", store.state[`ALL_${pageName}`]);
+  store.commit("SET_INGREDIENTS", store.getters[`ALL_${pageName}`]);
   for (const key in queryData.value) {
     queryData.value[key] = "";
   }

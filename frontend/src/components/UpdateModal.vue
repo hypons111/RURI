@@ -167,16 +167,16 @@ const currentView = computed({
   },
   // 'SET_CURRENT_VIEW' 被更新後會被觸發 get 更新 currentView
   get() {
-    return store.state.CURRENT_VIEW;
+    return store.getters.CURRENT_VIEW;
   },
 });
 
 // modal 是 add / edit
-const currentOption = computed(() => store.state.CURRENT_OPTION);
+const currentOption = computed(() => store.getters.CURRENT_OPTION);
 
 // 如果 updateOption 是 add 就會是""
 // 如果 updateOption 是 edit 就會帶入相關資料
-const currentData = computed(() => store.state.CURRENT_DATA);
+const currentData = computed(() => store.getters.CURRENT_DATA);
 
 // 是否要新增 ingredient category
 const isNewCategory = ref(false);
@@ -193,7 +193,7 @@ function updateHandler() {
   const url = currentOption.value + currentView.value;
   switch (url) {
     case "addIngredient":
-      currentData.value.id = (store.state.ALL_INGREDIENTS.length + 1)
+      currentData.value.id = (store.getters.ALL_INGREDIENTS.length + 1)
         .toString()
         .padStart(3, "0");
       break;

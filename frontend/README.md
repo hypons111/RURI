@@ -169,3 +169,5 @@ Quest left:
 Ingredient CATEGORY 改為 hard code。
 計算 Ingredient 成本 api。
 計算 Ingredient 成本 介面。
+
+將全部 `store.state` 都改成 `store.getters`

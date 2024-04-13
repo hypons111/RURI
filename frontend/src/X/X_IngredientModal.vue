@@ -134,7 +134,7 @@ function onChangeGategory(event) {
 }
 
 function add() {
-  requestData.id = (store.state.ALL_INGREDIENTS.length + 1)
+  requestData.id = (store.getters.ALL_INGREDIENTS.length + 1)
     .toString()
     .padStart(3, "0");
   API.axiosPost("addIngredient", requestData).then((response) => {
