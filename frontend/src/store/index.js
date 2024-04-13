@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import axios from 'axios';
-import URL from "../assets/js/url";
+import URL from "../X/X_url";
 
 export default createStore({
   state: {
@@ -9,7 +9,18 @@ export default createStore({
     ALL_ORDERS: [],
     INGREDIENTS: [],
     DESSERTS: [],
-    ORDERS: []
+    ORDERS: [],
+    CURRENT_VIEW: "Ingredient",
+    CURRENT_OPTION: "add",
+    CURRENT_DATA: {
+      name: "",
+      unit: "",
+      category: "",
+      stock: "",
+      unitcost: "",
+      remark: "",
+      option: "",
+    }
   },
   getters: {
     ALL_INGREDIENTS: state => state.ALL_INGREDIENTS,
@@ -17,7 +28,10 @@ export default createStore({
     ALL_ORDERS: state => state.ALL_ORDERS,
     INGREDIENTS: state => state.INGREDIENTS,
     DESSERTS: state => state.DESSERTS,
-    ORDERS: state => state.ORDERS
+    ORDERS: state => state.ORDERS,
+    CURRENT_VIEW: state => state.CURRENT_VIEW,
+    CURRENT_OPTION: state => state.CURRENT_OPTION,
+    CURRENT_DATA: state => state.CURRENT_DATA
   },
   mutations: {
     SET_ALL_INGREDIENTS(state, payload) {
@@ -37,6 +51,15 @@ export default createStore({
     },
     SET_ORDERS(state, payload) {
       state.ORDERS = payload;
+    },
+    SET_CURRENT_VIEW(state, payload) {
+      state.CURRENT_VIEW = payload;
+    },
+    SET_CURRENT_OPTION(state, payload) {
+      state.CURRENT_OPTION = payload;
+    },
+    SET_CURRENT_DATA(state, payload) {
+      state.CURRENT_DATA = payload;
     }
   },
   actions: {

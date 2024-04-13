@@ -7,7 +7,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./assets/css/reset.css";
 import "./assets/css/globe.css";
 import axios from "axios";
-import url from "./assets/js/url";
+import url from "./X/X_url";
 import api from "./assets/js/api";
 
 import { library } from "@fortawesome/fontawesome-svg-core";

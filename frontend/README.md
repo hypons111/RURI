@@ -79,7 +79,7 @@ store.dispatch('actionName', payload 可選); // 使用action，actionName是act
 用`<component :is="switchComponent"></component>`控制modal內容，
 currentComponent是狀態，switchComponent根據currentComponent的狀態回傳適合的modal。
 ```
-import ingredientModal from "./components/ingredientModal.vue";
+import ingredientModal from "./components/IngredientModal";
 
 const currentComponent = ref("ingredient");
 
@@ -126,3 +126,46 @@ const switchComponent = computed(() => {
 ```
 <input type="text" v-model.trim="item"/>
 ```
+
+
+## 2024-04-13
+停用 component 組件，轉成三個頁面嘅 model 都放喺 updateModal.vue，用 `v-if` 控制。
+
+component 用法紀錄：
+```
+</template>
+  <component :is="switchComponent"></component>
+</template>
+
+<script setup>
+  import ingredientModal from "./IngredientModal";
+  import dessertModal from "./DessertModal";
+  import orderModal from "./OrderModal";
+  const currentPage = ref("ingredient");
+  const switchComponent = computed(() => {
+    switch (currentPage.value) {
+      case "ingredient":
+        return ingredientModal;
+      case "dessert":
+        eturn dessertModal;
+      case "order":
+        return orderModal;
+    }
+  });
+</script>
+```
+
+新增 3 個 store:
+CURRENT_VIEW:     // String，控制 updateModal 頁面。
+CURRENT_OPTION:   // String，控制 updateModal 功能。
+CURRENT_DATA:     // Object，updateModal input、requestData 嘅值。
+
+Ingredient CRUD 都大致完成，但係要研究吓點同另外兩個 view 嘅功能共用一啲 function 同 variable。本來想用一個 updateHandler() 就分流晒咁多個 add 同 edit 嘅 request。但有大多 customize 嘅資料要處理先可以 request，結果同拆開做無分別。
+
+將 url.js 合拼去 api.js 
+
+Quest left:
+設計 updateHandle 分流。
+Ingredient CATEGORY 改為 hard code。
+計算 Ingredient 成本 api。
+計算 Ingredient 成本 介面。

@@ -132,12 +132,18 @@ const props = defineProps({
 function onChangeGategory(event) {
   isSolidColor.value = event.target.value === "0" ? false : true;
 }
+
 function add() {
   requestData.id = (store.state.ALL_INGREDIENTS.length + 1)
     .toString()
     .padStart(3, "0");
   API.axiosPost("addIngredient", requestData).then((response) => {
-    console.log(response);
+    if (response.data[0]) {
+      API.axiosGet("getAllIngredients").then((response) => {
+        store.commit("SET_ALL_INGREDIENTS", response.data[1]);
+        store.commit("SET_INGREDIENTS", response.data[1]);
+      });
+    }
   });
 }
 </script>

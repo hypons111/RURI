@@ -67,7 +67,7 @@ router.post("/deleteIngredient", (req, res) => {
   Ingredient.findOneAndDelete(requestData)
     .then(response => {
       if (response) return res.send([true, "success"]);
-      else return res.send([false, "資料庫沒有相關資料。"]);
+      else return res.send([false, "failed"]);
     })
     .catch(error => res.send([false, error.message]))
 });

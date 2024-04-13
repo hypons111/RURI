@@ -18,25 +18,38 @@
       <router-link to="" id="showUpdateModalBotton">
         <font-awesome-icon
           data-bs-toggle="modal"
-          data-bs-target="#createModal"
+          data-bs-target="#updateModal"
           :icon="['fas', 'plus']"
+          @click="onclickUpdateModalButton"
         />
       </router-link>
     </nav>
-    <updateModal> </updateModal>
+    <UpdateModal></UpdateModal>
   </div>
 </template>
 
 <script setup>
 import { computed, ref, onMounted, inject } from "vue";
 import { useStore } from "vuex";
+import UpdateModal from "@/components/UpdateModal.vue";
 const store = useStore();
+const currentOption = computed(() => store.state.CURRENT_OPTION);
 
 onMounted(async () => {
   store.dispatch("fetchAll");
 });
-</script>
 
+function onclickUpdateModalButton() {
+  // 改變 modal 為新增
+  store.commit("SET_CURRENT_OPTION", "add");
+  // 清空 CURRENT_DATA 的值
+  const obj = store.state.CURRENT_DATA;
+  for (const key in obj) {
+    obj[key] = "";
+  }
+  store.commit("SET_CURRENT_DATA", obj);
+}
+</script>
 
 <style lang="scss">
 #app {

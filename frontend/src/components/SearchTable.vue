@@ -59,13 +59,13 @@
                 <div class="tableValue">
                   <font-awesome-icon
                     data-bs-toggle="modal"
-                    data-bs-target="#createModal"
+                    data-bs-target="#updateModal"
                     :icon="['fas', 'pen-to-square']"
-                    @click="editIngredient(item)"
+                    @click="onclickUpdateModalButton(item)"
                   />
                   <font-awesome-icon
                     :icon="['fas', 'trash']"
-                    @click="deleteIngredient(item._id)"
+                    @click="deleteIngredient(item._id, item.name)"
                   />
                 </div>
               </td>
@@ -74,7 +74,7 @@
         </table>
       </div>
     </div>
-    <UpdateModal :editData="editData"></UpdateModal>
+    <UpdateModal :currentOption="currentOption"></UpdateModal>
   </div>
 </template>
 
@@ -83,10 +83,10 @@ import { computed, ref, onMounted, inject } from "vue";
 import { useStore } from "vuex";
 import UpdateModal from "@/components/UpdateModal.vue";
 const API = inject("API");
-const URL = inject("URL");
 const isHideSearchBar = ref(false);
 const queryData = ref({});
 const store = useStore();
+const currentOption = computed(() => store.state.CURRENT_OPTION);
 const tableDataArray = computed(() => store.state[pageName]);
 const props = defineProps({
   pageName: String,
@@ -95,10 +95,16 @@ const props = defineProps({
 });
 const pageName = props.pageName;
 const tableHeaderArray = props.tableHeaderArray;
-const editData = ref({});
+const updateData = ref({});
+
+function onclickUpdateModalButton(item) {
+  // 改變 modal 為修改
+  store.commit("SET_CURRENT_OPTION", "edit");
+  // 放入要修改的物件的資料到 CURRENT_DATA
+  store.commit("SET_CURRENT_DATA", item);
+}
 
 function queryIngredients() {
-  console.log(queryData);
   const requestData = {};
   for (const key in queryData.value) {
     if (queryData.value[key]) requestData[key] = queryData.value[key].trim();
@@ -115,21 +121,15 @@ function initial() {
   }
 }
 
-function editIngredient(item) {
-  const obj = {
-    name: "kin",
-  };
-  editData.value = obj;
-  console.log(obj);
-  console.log(editData);
-}
-
-function deleteIngredient(_id) {
-  const queryData = {
-    _id,
-  };
+function deleteIngredient(_id, name) {
+  const queryData = { _id };
   API.axiosPost("deleteIngredient", queryData).then((response) => {
-    if (response.data) {
+    if (response.data[0]) {
+      alert(`Deleted ${name}`);
+      API.axiosGet("getAllIngredients").then((response) => {
+        store.commit("SET_ALL_INGREDIENTS", response.data[1]);
+        store.commit("SET_INGREDIENTS", response.data[1]);
+      });
     } else {
       console.log(`[_id] : ${_id}`);
       console.log(response);
