@@ -4,10 +4,10 @@ const ingredientSchema = new mongoose.Schema({
   id: String,
   name: String,
   unit: String,
-  category: String,
+  // category: String,
   stock: Number,
   unitcost: Number,
-  remark: String
+  label: Array
 }, { collection: 'ingredients' })
 
 const dessertSchema = new mongoose.Schema({

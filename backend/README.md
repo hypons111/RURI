@@ -102,3 +102,30 @@ requestData = { $regex: string, $options: 'i' };
 // "蛋"，"雞蛋"、"蛋糕"、"煎蛋" 等都會被匹配
 // 更複雜的匹配模式（例如，只匹配以 "蛋" 開頭），就要在模式字符串中加入相應的正則表達式語法。
 ```
+
+
+## 2024-05-01
+ingredientSchema 刪除 category 同 remark、增加 label 陣列。
+
+### mongoDB 語法：
+#### 新增欄位
+db.collection欄位.updateMany(
+   {}, // 篩選條件，空對象表示匹配所有文檔
+   { $set: { 新增的欄位名稱: 資料形態 } } // 資料形態：""，[]，0
+);
+
+#### 移除欄位
+```
+db.collection欄位.updateMany(
+   {}, // 篩選條件，空對象表示匹配所有文檔
+   { $unset: { 移除的欄位名稱: "" } }
+);
+```
+
+#### 更改欄位名稱
+```
+db.collection欄位.updateMany(
+   {},
+   { $rename: { "舊的欄位名稱": "新的欄位名稱" } }
+);
+```

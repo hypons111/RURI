@@ -171,3 +171,7 @@ Ingredient CATEGORY 改為 hard code。
 計算 Ingredient 成本 介面。
 
 將全部 `store.state` 都改成 `store.getters`
+
+
+## 2024-05-01
+updateHandler() 新增 / 修改資料後會關閉 modal和更新畫面資料。

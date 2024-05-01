@@ -125,7 +125,7 @@ function deleteIngredient(_id, name) {
   const queryData = { _id };
   API.axiosPost("deleteIngredient", queryData).then((response) => {
     if (response.data[0]) {
-      alert(`Deleted ${name}`);
+      // alert(`deleted : ${name}`);
       API.axiosGet("getAllIngredients").then((response) => {
         store.commit("SET_ALL_INGREDIENTS", response.data[1]);
         store.commit("SET_INGREDIENTS", response.data[1]);

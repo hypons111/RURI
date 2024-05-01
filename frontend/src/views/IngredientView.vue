@@ -18,10 +18,10 @@ const tableHeaderArray = ref([
   "#",
   "NAME",
   "UNIT",
-  "CATEGORY",
+  // "CATEGORY",
   "STOCK",
   "UNITCOST",
-  "REMARK",
+  "LABEL",
   "OPTION",
 ]);
 </script>

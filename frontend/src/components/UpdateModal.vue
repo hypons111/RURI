@@ -32,6 +32,21 @@
 
           <!-- Ingredient -->
           <div v-if="currentView === 'Ingredient'" class="modal-body">
+            <!-- Id -->
+            <div class="mb-4">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="id"
+                  v-model="currentData.id"
+                  disabled
+                />
+              </div>
+              <div id="" class="form-text errorText none">error</div>
+            </div>
+
+            <!-- Name -->
             <div class="mb-4">
               <div class="input-group">
                 <input
@@ -44,6 +59,7 @@
               <div id="" class="form-text errorText none">error</div>
             </div>
 
+            <!-- Unit -->
             <div class="mb-4">
               <div class="input-group">
                 <input
@@ -56,7 +72,8 @@
               <div id="" class="form-text errorText none">error</div>
             </div>
 
-            <div class="mb-4">
+            <!-- Category -->
+            <!-- <div class="mb-4">
               <div class="input-group">
                 <div v-if="isNewCategory" class="input-group">
                   <input
@@ -98,8 +115,9 @@
                 </div>
               </div>
               <div id="" class="form-text errorText none">error</div>
-            </div>
+            </div> -->
 
+            <!-- Stock -->
             <div class="mb-4">
               <div class="input-group">
                 <input
@@ -112,6 +130,7 @@
               <div id="" class="form-text errorText none">error</div>
             </div>
 
+            <!-- Unitcost -->
             <div class="mb-4">
               <div class="input-group">
                 <input
@@ -124,6 +143,7 @@
               <div id="" class="form-text errorText none">error</div>
             </div>
 
+            <!-- Remark -->
             <div class="">
               <div class="input-group">
                 <textarea
@@ -143,6 +163,7 @@
 
           <div class="modal-footer">
             <font-awesome-icon
+              data-bs-dismiss="modal"
               :icon="['fas', 'floppy-disk']"
               @click="updateHandler()"
             />
@@ -176,7 +197,25 @@ const currentOption = computed(() => store.getters.CURRENT_OPTION);
 
 // 如果 updateOption 是 add 就會是""
 // 如果 updateOption 是 edit 就會帶入相關資料
-const currentData = computed(() => store.getters.CURRENT_DATA);
+// 如果新增資料 (currentData.id === "")，就用 `資料長度＋1` 做 id
+const currentData = computed(() => {
+  const data = store.getters.CURRENT_DATA;
+  let target = "";
+  switch (currentView.value) {
+    case "Ingredient":
+      target = "ALL_INGREDIENTS";
+      break;
+    case "":
+      target = "ALL_DESSERTS";
+      break;
+    case "":
+      target = "ALL_ORDERS";
+      break;
+  }
+  const newId = (store.getters[target].length + 1).toString().padStart(3, "0");
+  data.id = data.id || newId;
+  return data;
+});
 
 // 是否要新增 ingredient category
 const isNewCategory = ref(false);
@@ -191,15 +230,18 @@ function onChangeGategory(event) {
 
 function updateHandler() {
   const url = currentOption.value + currentView.value;
-  switch (url) {
-    case "addIngredient":
-      currentData.value.id = (store.getters.ALL_INGREDIENTS.length + 1)
-        .toString()
-        .padStart(3, "0");
-      break;
-  }
   API.axiosPost(url, currentData.value).then((response) => {
-    console.log(response);
+    if (response.data[0]) {
+      // 下面呢句要改成 ingredinet dessert order 通用嘅 URL
+      // 或者可以直接 `store.dispatch("fetchAll")`;
+      API.axiosGet("getAllIngredients").then((response) => {
+        store.commit("SET_ALL_INGREDIENTS", response.data[1]);
+        store.commit("SET_INGREDIENTS", response.data[1]);
+      });
+    } else {
+      console.log(`[_id] : ${_id}`);
+      console.log(response);
+    }
   });
 }
 
