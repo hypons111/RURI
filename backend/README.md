@@ -108,24 +108,49 @@ requestData = { $regex: string, $options: 'i' };
 ingredientSchema 刪除 category 同 remark、增加 label 陣列。
 
 ### mongoDB 語法：
+
+
+#### 切換 collection
+```
+use [collection]
+```
+
 #### 新增欄位
-db.collection欄位.updateMany(
+```
+db.[collection].updateMany(
    {}, // 篩選條件，空對象表示匹配所有文檔
-   { $set: { 新增的欄位名稱: 資料形態 } } // 資料形態：""，[]，0
+   { $set: { "新增的欄位名稱" : 資料形態 } } // 資料形態：""，[]，0
 );
+```
 
 #### 移除欄位
 ```
-db.collection欄位.updateMany(
+db.[collection].updateMany(
    {}, // 篩選條件，空對象表示匹配所有文檔
-   { $unset: { 移除的欄位名稱: "" } }
+   { $unset: { "移除的欄位名稱" : "" } }
 );
 ```
 
 #### 更改欄位名稱
 ```
-db.collection欄位.updateMany(
+db.c[collection].updateMany(
    {},
    { $rename: { "舊的欄位名稱": "新的欄位名稱" } }
 );
 ```
+
+
+## 2024-05-04
+
+### Procfile 內容解釋
+chat-GPT :
+
+web：這是一個進程類型標識符，用來告訴 Heroku 該命令應該被用作啟動應用的 web 服務器。Heroku 支持多種進程聲明，如 worker、clock 等，其中 web 專門處理 web 流量。
+node backend/app.js：這是啟動應用程序的命令。它指示 Heroku 使用 Node.js 執行位於 backend 目錄下的 app.js 文件。這表明你的 Node.js 應用入口點位於項目的 backend 子目錄中。
+
+如何使用 Procfile：
+創建 Procfile：在項目的根目錄下創建一個無擴展名的文件，命名為 Procfile。
+
+編寫命令：在文件中寫入需要執行的命令，格式為 `<process type>: <command>`。對於 web 應用通常是 web: <啟動命令>。
+部署到 Heroku：通過 Git 將項目推送到 Heroku。Heroku 會檢測 Procfile 並使用其中定義的命令來啟動你的應用程序。
+使用 Procfile 可以清楚地指定應用的不同部分如何啟動，特別是對於包含多個服務或複雜目錄結構的項目來說非常有用。這確保了 Heroku 能夠正確理解並啟動你的應用各部分。

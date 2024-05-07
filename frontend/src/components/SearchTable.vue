@@ -55,6 +55,7 @@
                 <label for="">{{ key.toUpperCase() }} : </label>
                 <div class="tableValue">{{ value }}</div>
               </td>
+
               <td>
                 <div class="tableValue">
                   <font-awesome-icon

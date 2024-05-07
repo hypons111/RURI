@@ -10,6 +10,24 @@ router.get("/home", (req, res) => {
 /* 全部材料 */
 router.get("/getAllIngredients", (req, res) => {
   Ingredient.find({}, { __v: false })
+    .then(ingredients => {
+      return ingredients.map(ingredient => {
+        let ppu = 0;
+        if (ingredient.inventoryValue > 0 && ingredient.inventory > 0) {
+          ppu = Math.round((ingredient.inventoryValue / ingredient.inventory) * 100) / 100
+        }
+        return {
+          _id: ingredient._id,
+          id: ingredient.id,
+          name: ingredient.name,
+          inventory: ingredient.inventory,
+          inventoryValue: ingredient.inventoryValue,
+          pricePerUnit: ppu,
+          unit: ingredient.unit,
+          label: ingredient.label
+        };
+      });
+    })
     .then(ingredients => res.send([true, ingredients]))
     .catch(error => res.send([false, error.message]))
 });

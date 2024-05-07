@@ -59,9 +59,43 @@
               <div id="" class="form-text errorText none">error</div>
             </div>
 
-            <!-- Unit -->
+            <!-- Inventory -->
             <div class="mb-4">
               <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Inventory"
+                  v-model="currentData.inventory"
+                />
+              </div>
+              <div id="" class="form-text errorText none">error</div>
+            </div>
+
+            <!-- Total Inventory Value -->
+            <div class="mb-4">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Total Inventory Value"
+                  v-model="currentData.inventoryValue"
+                />
+              </div>
+              <div id="" class="form-text errorText none">error</div>
+            </div>
+
+            <!-- Unitcost -->
+            <div class="mb-4">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Price per Unit"
+                  v-model="currentData.pricePerUnit"
+                  disabled
+                />
+                <span class="input-group-text">/</span>
                 <input
                   type="text"
                   class="form-control"
@@ -116,32 +150,6 @@
               </div>
               <div id="" class="form-text errorText none">error</div>
             </div> -->
-
-            <!-- Stock -->
-            <div class="mb-4">
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="stock"
-                  v-model="currentData.stock"
-                />
-              </div>
-              <div id="" class="form-text errorText none">error</div>
-            </div>
-
-            <!-- Unitcost -->
-            <div class="mb-4">
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="unitcost"
-                  v-model="currentData.unitcost"
-                />
-              </div>
-              <div id="" class="form-text errorText none">error</div>
-            </div>
 
             <!-- Remark -->
             <div class="">
@@ -218,18 +226,21 @@ const currentData = computed(() => {
 });
 
 // 是否要新增 ingredient category
-const isNewCategory = ref(false);
+// const isNewCategory = ref(false);
 
 // <select> 字體顏色
-const isSolidColor = ref(false);
+// const isSolidColor = ref(false);
 
 // 保持 <select> 字體顏色一致
-function onChangeGategory(event) {
-  isSolidColor.value = event.target.value === "0" ? false : true;
-}
+// function onChangeGategory(event) {
+//   isSolidColor.value = event.target.value === "0" ? false : true;
+// }
 
 function updateHandler() {
   const url = currentOption.value + currentView.value;
+
+  console.log(currentData.value);
+
   API.axiosPost(url, currentData.value).then((response) => {
     if (response.data[0]) {
       // 下面呢句要改成 ingredinet dessert order 通用嘅 URL
@@ -244,50 +255,14 @@ function updateHandler() {
     }
   });
 }
-
-function addhandler(currentView) {
-  switch (currentView) {
-    case "ingredient":
-      console.log(updateOption);
-      addIngredient();
-      break;
-    case "dessert":
-      addDessert();
-      break;
-    case "order":
-      addOrder();
-      break;
-  }
-}
-
-function addIngredient() {
-  console.log("addIngredient");
-}
-
-function addDessert() {
-  console.log("addDessert");
-}
-
-function addOrder() {
-  console.log("addOrder");
-}
-
-function editHandler(currentView) {
-  console.log("editHandler");
-  switch (currentView) {
-    case "ingredient":
-      editIngredient();
-      break;
-    case "dessert":
-      editDessert();
-      break;
-    case "order":
-      eidtOrder();
-      break;
-  }
-}
-
-function editIngredient() {
-  console.log("editIngredient");
-}
 </script>
+
+
+/*
+
+stock + newStock = realStock
+price + newPrice = realPrice
+
+realPricePerUnit = realPrice / realStock
+
+*/

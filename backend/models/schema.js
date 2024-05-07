@@ -3,10 +3,9 @@ const mongoose = require('mongoose');
 const ingredientSchema = new mongoose.Schema({
   id: String,
   name: String,
+  inventory: Number,
+  inventoryValue: Number,
   unit: String,
-  // category: String,
-  stock: Number,
-  unitcost: Number,
   label: Array
 }, { collection: 'ingredients' })
 

@@ -13,14 +13,14 @@ import SearchTable from "@/components/SearchTable.vue";
 import { ref, onMounted } from "vue";
 
 const pageName = ref("INGREDIENTS");
-const searchBarArray = ref(["id", "name", "category", "remark"]);
+const searchBarArray = ref(["id", "name", "inventory", "label"]);
 const tableHeaderArray = ref([
   "#",
   "NAME",
+  "INVENTORY",
+  "INVENTORY VALUE",
+  "PRICE PER UNIT",
   "UNIT",
-  // "CATEGORY",
-  "STOCK",
-  "UNITCOST",
   "LABEL",
   "OPTION",
 ]);
